@@ -2,10 +2,10 @@
    Every product opens the one product page; the bag persists between pages (localStorage). */
 (function () {
   var CAT = {
-    'Mousse Def Texture Foam': { size: '7 oz', p: 16.99, img: 'assets/hp-md-900.webp' },
-    'CRAZYSEXYCURL Honey Setting Foam': { size: '7 oz', p: 16.99, img: 'assets/p-crazysexycurl-900.webp' },
-    'Big Poppa Defining Gel': { size: '16 oz', p: 14.99, img: 'assets/hp-bp-900.webp' },
-    'Dear Mama Moisture Milk': { size: '12 oz', p: 18.99, img: 'assets/hp-dm-900.webp' },
+    'Mousse Def Texture Foam': { size: '7 oz', p: 16.99, img: 'assets/e1f33379b1ec.jpg' },
+    'CRAZYSEXYCURL Honey Setting Foam': { size: '7 oz', p: 16.99, img: 'assets/2117fab34d4c.jpg' },
+    'Big Poppa Defining Gel': { size: '16 oz', p: 14.99, img: 'assets/27ba9e78eb47.jpg' },
+    'Dear Mama Moisture Milk': { size: '12 oz', p: 18.99, img: 'assets/f8b34826e231.jpg' },
     'Block Party Anti-Humidity Defining Gel': { size: '16 oz', p: 16.99, img: 'assets/p-block-party-900.webp' },
     'Bee Girl Honey Curl Custard': { size: '16 oz', p: 15.99, img: 'assets/p-bee-girl-custard-900.webp' },
     'Chief Rocka Xtreme Moisture Mousse': { size: '8 oz', p: 16.99, img: 'assets/p-chief-rocka-900.webp' },
@@ -16,9 +16,9 @@
     'Bonita Bubble Balm Foaming Pomade': { size: '', p: 17.99, img: '' },
     'Ladies First Honey Shampoo': { size: '8 oz', p: 12.99, img: '' },
     'Supersonic Honey Condish': { size: '8 oz', p: 12.99, img: '' },
-    'Push It! Honey Braid & Edge Gel': { size: '8 oz', p: 14.99, img: '' },
+    'Push It! Honey Braid & Edge Gel': { size: '8 oz', p: 14.99, img: 'assets/2770794f6724.jpg' },
     'DJ Quick Quick Dry Spray': { size: '8 oz', p: 15.99, img: 'assets/p-dj-quick-900.webp' },
-    'The Double Up Bundle': { size: 'Bundle', p: 47.59, img: 'assets/hp-md-900.webp' }
+    'The Double Up Bundle': { size: 'Bundle', p: 47.59, img: 'assets/e1f33379b1ec.jpg' }
   };
   var D = 'https://thedoux.com';
   /* link text -> destination for the mockup's placeholder (#) links */
@@ -154,7 +154,31 @@
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { close(); } });
   window.addEventListener('storage', function (e) { if (e.key === KEY) { bag = load(); render(); syncCounts(); } });
 
-  function init() { build(); fixLinks(); syncCounts(); }
+
+  /* ---- "Click to Stick" tooltip on the homepage hero ---- */
+  function stickTip() {
+    var hero = document.querySelector('section[aria-label="Featured"]');
+    if (!hero || hero.querySelector('.dx-tip')) { return; }
+    var touch = window.matchMedia && matchMedia('(hover: none)').matches;
+    var st = document.createElement('style');
+    st.textContent = '.dx-tip{position:absolute;z-index:30;left:50%;top:40%;transform:translate(-50%,8px);opacity:0;pointer-events:none;background:#fff;color:#000;font:600 11px/1 Jost,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,.18);transition:opacity .35s ease,transform .35s ease}' +
+      '.dx-tip::before{content:"";position:absolute;left:14px;top:-5px;width:10px;height:10px;background:#fff;transform:rotate(45deg)}' +
+      '.dx-tip.on{opacity:1;transform:translate(-50%,0)}.dx-tip.follow{transform:none;transition:opacity .35s ease}.dx-tip.follow::before{left:10px}.dx-tip.gone{opacity:0!important}' +
+      '@media (prefers-reduced-motion:reduce){.dx-tip{transition:none}}';
+    document.head.appendChild(st);
+    var tip = document.createElement('div'); tip.className = 'dx-tip'; tip.setAttribute('role', 'tooltip'); tip.textContent = touch ? 'Tap to Stick' : 'Click to Stick';
+    hero.appendChild(tip);
+    setTimeout(function () { tip.classList.add('on'); }, Math.max(150, 1200 - (window.performance ? performance.now() : 0)));
+    hero.addEventListener('mousemove', function (e) {
+      if (tip.classList.contains('gone')) { return; }
+      var r = hero.getBoundingClientRect();
+      tip.classList.add('follow');
+      tip.style.left = Math.min(e.clientX - r.left + 18, r.width - tip.offsetWidth - 12) + 'px';
+      tip.style.top = (e.clientY - r.top + 34) + 'px';
+    });
+    hero.addEventListener('click', function (e) { if (!e.target.closest('a,button')) { tip.classList.add('gone'); } });
+  }
+  function init() { build(); fixLinks(); syncCounts(); stickTip(); setTimeout(stickTip, 300); setTimeout(stickTip, 900); }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
   new MutationObserver(function () { fixLinks(); syncCounts(); }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 })();

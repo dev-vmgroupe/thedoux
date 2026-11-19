@@ -665,8 +665,8 @@ class Component extends DCLogic {
     super(props);
     this.state = { menuOpen: false, cartOpen: false, cart: {}, cx: 0, cy: 0, cursorOn: false, stamps: [], stickerIdx: 6, hot: null, tab: 'stylers' };
     this.stickers = [
-      'assets/mark.png', 'assets/mark.png', 'assets/mark.png',
-      'assets/mark.png', 'assets/mark.png', 'assets/mark.png', 'assets/mark.png'
+      'assets/30b0a725c27b.png', 'assets/51be822586b5.png', 'assets/a37c7b1d30aa.png',
+      'assets/52f4fc602c6c.png', 'assets/b9c0a5747829.png', 'assets/7e50a2f02cae.png', 'assets/f979fa7ddc41.png'
     ];
   }
   vidRef(el) {
@@ -681,15 +681,15 @@ class Component extends DCLogic {
   catalog() {
     const S = this.stickers;
     return {
-      md: { name: 'Mousse Def Texture Foam', size: '7 oz', p: 16.99, img: 'assets/hp-md-900.webp', alt: 'assets/md-sky-1000.webp', s: S[2], badge: 'Best seller' },
-      cs: { name: 'CRAZYSEXYCURL Honey Setting Foam', size: '7 oz', p: 16.99, img: 'assets/p-crazysexycurl-900.webp', alt: 'assets/csc-pump-1000.webp', s: S[4], badge: 'Bee Girl' },
-      bp: { name: 'Big Poppa Defining Gel', size: '16 oz', p: 14.99, img: 'assets/hp-bp-900.webp', alt: 'assets/hp-bp-h-900.webp', s: S[3], badge: '' },
-      dm: { name: 'Dear Mama Moisture Milk', size: '12 oz', p: 18.99, img: 'assets/hp-dm-900.webp', alt: 'assets/hp-dm-h-900.webp', s: S[1], badge: '' },
+      md: { name: 'Mousse Def Texture Foam', size: '7 oz', p: 16.99, img: 'assets/e1f33379b1ec.jpg', alt: 'assets/e2dded615f64.jpg', s: S[2], badge: 'Best seller' },
+      cs: { name: 'CRAZYSEXYCURL Honey Setting Foam', size: '7 oz', p: 16.99, img: 'assets/2117fab34d4c.jpg', alt: 'assets/0e65c07799b7.jpg', s: S[4], badge: 'Bee Girl' },
+      bp: { name: 'Big Poppa Defining Gel', size: '16 oz', p: 14.99, img: 'assets/27ba9e78eb47.jpg', alt: 'assets/91edda5ead30.jpg', s: S[3], badge: '' },
+      dm: { name: 'Dear Mama Moisture Milk', size: '12 oz', p: 18.99, img: 'assets/f8b34826e231.jpg', alt: 'assets/2289a33a24e4.jpg', s: S[1], badge: '' },
       ar: { name: 'Act Right Anti-Humectant Serum', size: '2 oz', p: 15.99, img: 'assets/p-act-right-900.webp', alt: '', s: S[0], badge: '' },
       gh: { name: 'Get Honey Hair & Scalp Serum', size: '', p: 14.99, img: '', alt: '', s: S[4], badge: '' },
       lf: { name: 'Ladies First Honey Shampoo', size: '8 oz', p: 12.99, img: '', alt: '', s: S[5], badge: '' },
       ss: { name: 'Supersonic Honey Condish', size: '8 oz', p: 12.99, img: '', alt: '', s: S[3], badge: '' },
-      pi: { name: 'Push It! Honey Braid & Edge Gel', size: '8 oz', p: 14.99, img: '', alt: '', s: S[2], badge: '' }
+      pi: { name: 'Push It! Honey Braid & Edge Gel', size: '8 oz', p: 14.99, img: 'assets/2770794f6724.jpg', alt: '', s: S[2], badge: '' }
     };
   }
   renderVals() {
@@ -703,7 +703,7 @@ class Component extends DCLogic {
       this.setState({ cart: next, cartOpen: true, menuOpen: false, hot: null });
     };
     const ids = Object.keys(cart);
-    const lines = ids.map((id) => ({ name: cat[id].name, size: cat[id].size, img: cat[id].img || 'assets/hp-md-900.webp', qty: cart[id], total: money(cat[id].p * cart[id]) }));
+    const lines = ids.map((id) => ({ name: cat[id].name, size: cat[id].size, img: cat[id].img || 'assets/e1f33379b1ec.jpg', qty: cart[id], total: money(cat[id].p * cart[id]) }));
     const sub = ids.reduce((s, id) => s + cart[id] * cat[id].p, 0);
     const count = ids.reduce((s, id) => s + cart[id], 0);
     const left = Math.max(0, 50 - sub);
@@ -744,10 +744,10 @@ class Component extends DCLogic {
       tabs: Object.keys(tabsDef).map((k) => ({ label: tabsDef[k].label, on: k === st.tab, color: k === st.tab ? '#000000' : 'rgba(0,0,0,0.55)', line: k === st.tab ? '#000000' : 'transparent', pick: () => this.setState({ tab: k }) })),
       tabSub: tab.sub, tabHead: tab.head, tabProducts: tab.ids.map(card),
       shoppable: [
-        { isVideo: false, isImg: true, src: 'assets/dm-splash-1000.webp', alt: '', product: 'Dear Mama Moisture Milk', price: '$18.99', thumb: cat.dm.img, add: add('dm') },
-        { isVideo: false, isImg: true, src: 'assets/csc-pump-1000.webp', alt: 'Foam over cornrows', product: 'Mousse Def Texture Foam', price: '$16.99', thumb: cat.md.img, add: add('md') },
-        { isVideo: false, isImg: true, src: 'assets/hp-bp-h-900.webp', alt: 'Combing through wet curls', product: 'Big Poppa Defining Gel', price: '$14.99', thumb: cat.bp.img, add: add('bp') },
-        { isVideo: false, isImg: true, src: 'assets/md-sky-1000.webp', alt: 'Foam pump close-up', product: 'CRAZYSEXYCURL Honey Setting Foam', price: '$16.99', thumb: cat.cs.img, add: add('cs') }
+        { isVideo: true, isImg: false, src: 'assets/1ae3c0a83adf.mp4', alt: '', product: 'Dear Mama Moisture Milk', price: '$18.99', thumb: cat.dm.img, add: add('dm') },
+        { isVideo: false, isImg: true, src: 'assets/0e65c07799b7.jpg', alt: 'Foam over cornrows', product: 'Mousse Def Texture Foam', price: '$16.99', thumb: cat.md.img, add: add('md') },
+        { isVideo: false, isImg: true, src: 'assets/91edda5ead30.jpg', alt: 'Combing through wet curls', product: 'Big Poppa Defining Gel', price: '$14.99', thumb: cat.bp.img, add: add('bp') },
+        { isVideo: false, isImg: true, src: 'assets/e2dded615f64.jpg', alt: 'Foam pump close-up', product: 'CRAZYSEXYCURL Honey Setting Foam', price: '$16.99', thumb: cat.cs.img, add: add('cs') }
       ],
       hotspots: hs.map((h) => {
         const c = cat[h.pid];
@@ -759,5 +759,6 @@ class Component extends DCLogic {
 }
 </script>
 
-<div id="concept-banner" style="position:fixed;left:0;right:0;bottom:0;z-index:2147483647;background:#111;color:#fff;text-align:center;font:600 11px/1.4 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:7px 16px;pointer-events:none">Redesign concept for The Doux, not the live site</div><script src="assets/shop.js"></script>
+<div id="concept-banner" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:rgba(17,17,17,.88);color:#fff;font:600 10px/1.3 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;pointer-events:none;max-width:calc(100vw - 24px)">Redesign concept for The Doux, not the live site</div>
+<script src="assets/shop.js"></script>
 </body></html>
