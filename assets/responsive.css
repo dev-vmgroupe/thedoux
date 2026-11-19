@@ -1,0 +1,19 @@
+/* Responsive refinements for the published mockup (tablet + small laptop) */
+@media (min-width:750px) and (max-width:1099px){
+  header nav .r-hide-m, header .r-hide-t{display:none!important}
+}
+@media (max-width:989px){
+  [role=tablist]{flex-wrap:nowrap!important;overflow-x:auto!important;justify-content:flex-start!important;scrollbar-width:none;max-width:100%}
+  [role=tablist]::-webkit-scrollbar{display:none}
+  [role=tablist]>*{flex:none}
+  .r-scrollrow{flex-wrap:nowrap!important;overflow-x:auto!important;justify-content:flex-start!important;max-width:100%;scrollbar-width:none;gap:24px!important}
+  .r-scrollrow::-webkit-scrollbar{display:none}
+  .r-scrollrow>*{flex:none}
+}
+@media (min-width:750px) and (max-width:1023px){
+  .r-gal{flex:1 1 55%!important}
+  .r-static{flex:1 1 45%!important;padding:24px!important}
+}
+@media (max-width:749px){
+  #bestsellers .r-grid2>div:first-child{grid-column:1/-1!important;min-height:0!important;padding:0 20px 8px!important}
+}
