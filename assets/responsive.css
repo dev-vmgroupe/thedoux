@@ -17,3 +17,6 @@
 @media (max-width:749px){
   #bestsellers .r-grid2>div:first-child{grid-column:1/-1!important;min-height:0!important;padding:0 20px 8px!important}
 }
+/* The Doux wordmark (official logo file, tinted with the header's text colour) */
+.dx-logo{display:inline-block;vertical-align:middle;width:147px;height:21px;background-color:currentColor;-webkit-mask:url(doux-logo.png) center/contain no-repeat;mask:url(doux-logo.png) center/contain no-repeat}
+@media (max-width:749px){.dx-logo{width:119px;height:17px}}
