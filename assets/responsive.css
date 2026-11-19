@@ -20,3 +20,5 @@
 /* The Doux wordmark (official logo file, tinted with the header's text colour) */
 .dx-logo{display:inline-block;vertical-align:middle;width:147px;height:21px;background-color:currentColor;-webkit-mask:url(doux-logo.png) center/contain no-repeat;mask:url(doux-logo.png) center/contain no-repeat}
 @media (max-width:749px){.dx-logo{--dx-lw:119px;--dx-lh:17px;width:119px!important;height:17px!important}}
+/* Best sellers block has a fixed desktop height in the design; let it grow when the cards wrap */
+@media (max-width:1199px){ #bestsellers{height:auto!important;padding-bottom:48px!important} }
