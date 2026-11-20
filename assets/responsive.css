@@ -42,3 +42,5 @@ aside[aria-label="Menu"] + button[aria-label="Close menu overlay"]{animation:dxF
   @keyframes dxHdrIn{from{transform:translateY(-100%)}to{transform:none}}
 }
 @media (max-width:989px) and (prefers-reduced-motion:reduce){ body.dx-home.dx-stuck header.r-hdr{animation:none} }
+/* Stickers live only in the homepage hero: hide the hover stickers on product cards */
+.v-stick{display:none!important}
