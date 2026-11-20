@@ -2,10 +2,10 @@
    Every product opens the one product page; the bag persists between pages (localStorage). */
 (function () {
   var CAT = {
-    'Mousse Def Texture Foam': { size: '7 oz', p: 16.99, img: 'assets/cap-493f50d679.jpg' },
-    'CRAZYSEXYCURL Honey Setting Foam': { size: '7 oz', p: 16.99, img: 'assets/cap-20f0b41765.jpg' },
-    'Big Poppa Defining Gel': { size: '16 oz', p: 14.99, img: 'assets/cap-1559a6feb6.jpg' },
-    'Dear Mama Moisture Milk': { size: '12 oz', p: 18.99, img: 'assets/cap-aff0588c30.jpg' },
+    'Mousse Def Texture Foam': { size: '7 oz', p: 16.99, img: 'assets/orig-a1e867c7ebb2.jpg' },
+    'CRAZYSEXYCURL Honey Setting Foam': { size: '7 oz', p: 16.99, img: 'assets/orig-938ecc94d734.jpg' },
+    'Big Poppa Defining Gel': { size: '16 oz', p: 14.99, img: 'assets/orig-fbd0f14d0a30.jpg' },
+    'Dear Mama Moisture Milk': { size: '12 oz', p: 18.99, img: 'assets/orig-e3b8bf64795d.jpg' },
     'Block Party Anti-Humidity Defining Gel': { size: '16 oz', p: 16.99, img: 'assets/p-block-party-900.webp' },
     'Bee Girl Honey Curl Custard': { size: '16 oz', p: 15.99, img: 'assets/p-bee-girl-custard-900.webp' },
     'Chief Rocka Xtreme Moisture Mousse': { size: '8 oz', p: 16.99, img: 'assets/p-chief-rocka-900.webp' },
@@ -18,7 +18,7 @@
     'Supersonic Honey Condish': { size: '8 oz', p: 12.99, img: '' },
     'Push It! Honey Braid & Edge Gel': { size: '8 oz', p: 14.99, img: 'assets/cap-d249dc96e1.jpg' },
     'DJ Quick Quick Dry Spray': { size: '8 oz', p: 15.99, img: 'assets/p-dj-quick-900.webp' },
-    'The Double Up Bundle': { size: 'Bundle', p: 47.59, img: 'assets/cap-df40608a5f.jpg' }
+    'The Double Up Bundle': { size: 'Bundle', p: 47.59, img: 'assets/orig-911cdee349f3.jpg' }
   };
   var D = 'https://thedoux.com';
   /* link text -> destination for the mockup's placeholder (#) links */
