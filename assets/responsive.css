@@ -24,3 +24,21 @@
    (cards are width-based 2:3). Let the content set the height and keep the design's bottom spacing. */
 #bestsellers{height:auto!important;padding-bottom:72px!important}
 @media (max-width:1199px){ #bestsellers{padding-bottom:48px!important} }
+/* Menu drawer motion: slide in, fade the scrim */
+@keyframes dxMenuIn{from{transform:translateX(-100%)}to{transform:none}}
+@keyframes dxMenuOut{from{transform:none}to{transform:translateX(-100%)}}
+@keyframes dxFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes dxFadeOut{from{opacity:1}to{opacity:0}}
+aside[aria-label="Menu"]{animation:dxMenuIn .5s cubic-bezier(.22,1,.36,1) both;will-change:transform}
+aside[aria-label="Menu"] + button[aria-label="Close menu overlay"]{animation:dxFadeIn .4s ease both}
+.dx-menu-closing aside[aria-label="Menu"]{animation:dxMenuOut .32s cubic-bezier(.55,0,.75,.2) both}
+.dx-menu-closing aside[aria-label="Menu"] + button{animation:dxFadeOut .32s ease both}
+@media (prefers-reduced-motion:reduce){aside[aria-label="Menu"],aside[aria-label="Menu"] + button,.dx-menu-closing aside[aria-label="Menu"],.dx-menu-closing aside[aria-label="Menu"] + button{animation-duration:1ms!important}}
+/* Collection content tile: full width (2x2 of the 2-up grid) on phones */
+@media (max-width:919px){ .dx-tile{min-height:100vw!important} }
+/* Sticky header on mobile/tablet. Homepage header overlays the hero, then pins with a solid background once you scroll. */
+@media (max-width:989px){
+  body.dx-home.dx-stuck header.r-hdr{position:fixed!important;top:0;left:0;right:0;background:#fff;color:#000;border-bottom:1px solid #e5e5e5;animation:dxHdrIn .35s cubic-bezier(.22,1,.36,1) both}
+  @keyframes dxHdrIn{from{transform:translateY(-100%)}to{transform:none}}
+}
+@media (max-width:989px) and (prefers-reduced-motion:reduce){ body.dx-home.dx-stuck header.r-hdr{animation:none} }
