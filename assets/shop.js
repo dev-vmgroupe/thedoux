@@ -155,30 +155,7 @@
   window.addEventListener('storage', function (e) { if (e.key === KEY) { bag = load(); render(); syncCounts(); } });
 
 
-  /* ---- "Click to Stick" tooltip on the homepage hero ---- */
-  function stickTip() {
-    var hero = document.querySelector('section[aria-label="Featured"]');
-    if (!hero || hero.querySelector('.dx-tip')) { return; }
-    var touch = window.matchMedia && matchMedia('(hover: none)').matches;
-    var st = document.createElement('style');
-    st.textContent = '.dx-tip{position:absolute;z-index:30;left:50%;top:40%;transform:translate(-50%,8px);opacity:0;pointer-events:none;background:#fff;color:#000;font:600 11px/1 Jost,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:10px 14px;white-space:nowrap;box-shadow:0 6px 24px rgba(0,0,0,.18);transition:opacity .35s ease,transform .35s ease}' +
-      '.dx-tip::before{content:"";position:absolute;left:14px;top:-5px;width:10px;height:10px;background:#fff;transform:rotate(45deg)}' +
-      '.dx-tip.on{opacity:1;transform:translate(-50%,0)}.dx-tip.follow{transform:none;transition:opacity .35s ease}.dx-tip.follow::before{left:10px}.dx-tip.gone{opacity:0!important}' +
-      '@media (prefers-reduced-motion:reduce){.dx-tip{transition:none}}';
-    document.head.appendChild(st);
-    var tip = document.createElement('div'); tip.className = 'dx-tip'; tip.setAttribute('role', 'tooltip'); tip.textContent = touch ? 'Tap to Stick' : 'Click to Stick';
-    hero.appendChild(tip);
-    setTimeout(function () { tip.classList.add('on'); }, Math.max(150, 1200 - (window.performance ? performance.now() : 0)));
-    hero.addEventListener('mousemove', function (e) {
-      if (tip.classList.contains('gone')) { return; }
-      var r = hero.getBoundingClientRect();
-      tip.classList.add('follow');
-      tip.style.left = Math.min(e.clientX - r.left + 18, r.width - tip.offsetWidth - 12) + 'px';
-      tip.style.top = (e.clientY - r.top + 34) + 'px';
-    });
-    hero.addEventListener('click', function (e) { if (!e.target.closest('a,button')) { tip.classList.add('gone'); } });
-  }
-  function init() { build(); fixLinks(); syncCounts(); stickTip(); setTimeout(stickTip, 300); setTimeout(stickTip, 900); }
+  function init() { build(); fixLinks(); syncCounts(); }
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
   new MutationObserver(function () { fixLinks(); syncCounts(); }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 })();
