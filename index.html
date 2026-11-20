@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex, nofollow">
 <title>The Doux — Homepage</title>
 <script src="assets/50b5f27afd16.js"></script>
-<link rel="stylesheet" href="assets/responsive.css?v=1795192999">
+<link rel="stylesheet" href="assets/responsive.css?v=1795194007">
 </head>
 <body>
 <x-dc>
@@ -436,8 +436,8 @@ a{color:inherit}a:hover{opacity:.7}
       <img src="assets/orig-4eee1e0b96ef.jpg" alt="Hands holding Mousse Def, Big Poppa, CRAZYSEXYCURL and Dear Mama" style="width: 100%; height: 100%; object-fit: cover; display: block">
       <sc-for list="{{hotspots}}" as="h" hint-placeholder-count="2">
         <div style="position: absolute; left: {{h.x}}%; top: {{h.y}}%; transform: translate(-50%, -50%)">
-          <button onClick="{{h.toggle}}" aria-label="{{h.label}}" aria-expanded="{{h.open}}" style="width: 44px; height: 44px; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center">
-            <span style="width: 20px; height: 20px; border-radius: 999px; background: #ffffff; box-shadow: 0 0 0 6px rgba(255,255,255,0.35); display: block"></span>
+          <button onClick="{{h.toggle}}" aria-label="{{h.label}}" aria-pressed="{{h.on}}" style="width: 44px; height: 44px; border: 0; background: none; cursor: pointer; display: flex; align-items: center; justify-content: center">
+            <span style="width: 20px; height: 20px; border-radius: 999px; background: #ffffff; box-shadow: {{h.ring}}; transition: box-shadow .2s ease; display: block"></span>
           </button>
           <sc-if value="{{h.open}}" hint-placeholder-val="{{ false }}">
             <div style="position: absolute; left: 50px; top: -6px; width: 230px; background: #ffffff; padding: 12px; display: flex; gap: 10px; align-items: center; font-size: 11.7px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase">
@@ -448,10 +448,10 @@ a{color:inherit}a:hover{opacity:.7}
         </div>
       </sc-for>
     </div>
-    <div style="flex: 1 1 420px; min-width: 0; position: relative; background: #ebebe9; display: flex; flex-direction: column; min-height: 560px">
+    <div data-look-panel style="scroll-margin: 24px; flex: 1 1 420px; min-width: 0; position: relative; background: #ebebe9; display: flex; flex-direction: column; min-height: 560px">
       <h2 id="look-h" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0">Shop the look</h2>
       <div class="r-px" style="display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 36px 48px 0">
-        <p style="margin: 0; font-size: 15px; font-weight: 800; letter-spacing: 0.01em; text-transform: uppercase">{{flipName}}</p>
+        <p aria-live="polite" style="margin: 0; font-size: 15px; font-weight: 800; letter-spacing: 0.01em; text-transform: uppercase">{{flipName}}</p>
         <p style="margin: 0; font-size: 15px; font-weight: 500">{{flipPrice}}</p>
       </div>
       <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center; padding: 24px 72px">
@@ -624,6 +624,9 @@ class Component extends DCLogic {
     const tab = tabsDef[st.tab];
     const card = (id) => { const c = cat[id]; return { name: c.name, price: money(c.p), img: c.img, alt: c.alt || c.img, hasImg: !!c.img, noImg: !c.img, sticker: c.s, badge: c.badge, add: add(id) }; };
     const hs = [ { id: 'h1', x: 40, y: 30, pid: 'md' }, { id: 'h2', x: 74, y: 14, pid: 'bp' }, { id: 'h3', x: 74, y: 72, pid: 'cs' }, { id: 'h4', x: 26, y: 84, pid: 'dm' } ];
+    const flipIds = ['md', 'bp', 'dm'].concat(hs.map((h) => h.pid).filter((p, k, a) => ['md', 'bp', 'dm'].indexOf(p) < 0 && a.indexOf(p) === k));
+    const flipCur = flipIds[(st.flip || 0) % flipIds.length];
+    const lookFocus = () => setTimeout(() => { const p = document.querySelector('[data-look-panel]'); if (!p) return; const r = p.getBoundingClientRect(); if (r.top > innerHeight * 0.5 || r.bottom < 0) p.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'center' }); }, 60);
     return {
       vidRef: this.vidRef,
       menuOpen: st.menuOpen,
@@ -663,7 +666,7 @@ class Component extends DCLogic {
         { isVideo: false, isImg: true, src: 'assets/orig-be283a508712.jpg', poster: '', alt: 'Hand pumping Mousse Def foam', product: 'Mousse Def Texture Foam', price: '$16.99', thumb: cat.md.img, add: add('md') }
       ],
       ...(() => {
-        const ids = ['md', 'bp', 'dm'];
+        const ids = flipIds;
         const i = (st.flip || 0) % ids.length;
         const c = cat[ids[i]];
         const go = (d) => () => this.setState({ flip: ((this.state.flip || 0) + d + ids.length) % ids.length });
@@ -676,13 +679,14 @@ class Component extends DCLogic {
       hotspots: hs.map((h) => {
         const c = cat[h.pid];
         const open = st.hot === h.id;
-        return { x: h.x, y: h.y, name: c.name, price: money(c.p), label: 'Show product: ' + c.name, open: open, toggle: () => this.setState({ hot: open ? null : h.id }), add: add(h.pid) };
+        const on = h.pid === flipCur;
+        return { x: h.x, y: h.y, name: c.name, price: money(c.p), label: 'Show product: ' + c.name, open: false, on: on, ring: on ? '0 0 0 3px #000000, 0 0 0 9px rgba(255,255,255,0.75)' : '0 0 0 6px rgba(255,255,255,0.35)', toggle: () => { this.setState({ flip: flipIds.indexOf(h.pid), hot: null }); lookFocus(); }, add: add(h.pid) };
       })
     };
   }
 }
 </script>
 <div id="concept-banner" style="position:fixed;left:12px;bottom:12px;z-index:2147483647;background:rgba(17,17,17,.88);color:#fff;font:600 10px/1.3 system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;pointer-events:none;max-width:calc(100vw - 24px)">Redesign concept for The Doux, not the live site</div>
-<script src="assets/shop.js?v=1795192999"></script>
+<script src="assets/shop.js?v=1795194007"></script>
 </body>
 </html>

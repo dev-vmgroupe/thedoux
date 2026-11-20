@@ -20,5 +20,7 @@
 /* The Doux wordmark (official logo file, tinted with the header's text colour) */
 .dx-logo{display:inline-block;vertical-align:middle;width:147px;height:21px;background-color:currentColor;-webkit-mask:url(doux-logo.png) center/contain no-repeat;mask:url(doux-logo.png) center/contain no-repeat}
 @media (max-width:749px){.dx-logo{--dx-lw:119px;--dx-lh:17px;width:119px!important;height:17px!important}}
-/* Best sellers block has a fixed desktop height in the design; let it grow when the cards wrap */
-@media (max-width:1199px){ #bestsellers{height:auto!important;padding-bottom:48px!important} }
+/* Best sellers: the design fixes this block at 741px, which clips the product cards once they grow
+   (cards are width-based 2:3). Let the content set the height and keep the design's bottom spacing. */
+#bestsellers{height:auto!important;padding-bottom:72px!important}
+@media (max-width:1199px){ #bestsellers{padding-bottom:48px!important} }
